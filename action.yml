@@ -1,0 +1,14 @@
+name: 'Repo Star Count'
+description: 'Get count of Github repository stars'
+author: 'Alan He'
+inputs:
+   repo:
+     description: 'Repository Path'
+     required: false
+     default: ${{github.repository}}
+runs:
+  steps:
+    run: |
+      star=`curl -s 'https://api.github.com/repos/${{repo}}?page=$i&per_page=100' | jq .stargazers_count`
+      echo "repoStars=$star" >> $GITHUB_ENV
+    shell: bash
