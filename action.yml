@@ -8,6 +8,7 @@ inputs:
      default: ${{github.repository}}
 runs:
   steps:
+    using: docker
     run: |
       star=`curl -s 'https://api.github.com/repos/${{repo}}?page=$i&per_page=100' | jq .stargazers_count`
       echo "repoStars=$star" >> $GITHUB_ENV
