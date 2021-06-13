@@ -1,11 +1,17 @@
 ## About
 
+just use `${{steps.repo-stars.outputs.stars}}` to get repo's star-count.
+
 ### Example
-just use `${{env.repoStars}}` to get repo's star-count.
 
 ```yml
 ...
-          message: |
-            There are currently ${{env.repoStars}} :star:, come on!
+
+steps:
+- name: Star Count
+  id: repo-stars
+  uses: alanhg/repo-star-count-action@master
+
 ...
+
 ```

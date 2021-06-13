@@ -2,17 +2,22 @@ name: 'Repo Star Count'
 description: 'Get count of Github repository stars'
 author: 'Alan He'
 inputs:
-   repo:
-     description: 'Repository Path'
-     required: false
-     default: ${{github.repository}}
+  repoPath:
+    description: 'Repository Path'
+    required: false
+    default: ${{github.repository}}
+outputs:
+  stars:
+    description: "Repo Stars"
+    value: ${{ steps.repo-stars.outputs.stars }}
 runs:
+  using: composite
   steps:
-    using: docker
-    run: |
-      star=`curl -s 'https://api.github.com/repos/${{repo}}?page=$i&per_page=100' | jq .stargazers_count`
-      echo "repoStars=$star" >> $GITHUB_ENV
-    shell: bash
+    - id: repo-stars
+      run: |
+        STARS=`curl -s 'https://api.github.com/repos/${{ inputs.repoPath }}?page=$i&per_page=100' | jq .stargazers_count`
+        echo "::set-output name=stars::$STARS"
+      shell: bash
 branding:
   icon: 'award'
   color: 'green'
