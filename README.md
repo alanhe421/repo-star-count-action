@@ -15,7 +15,7 @@ on:
 steps:
 - name: Star Count
   id: repo-stars
-  uses: alanhg/repo-star-count-action@master
+  uses: alanhe421/repo-star-count-action@master
 
 ...
 
